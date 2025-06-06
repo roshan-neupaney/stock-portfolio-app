@@ -28,8 +28,6 @@ interface TableProps<TData> {
   topRender?: React.ReactNode;
   hideEdit?: boolean;
   hideDelete?: boolean;
-  toggleModal?: (value: { id?: string; state: boolean }) => void;
-  toggleFormModal?: (value: { id?: string; state: boolean }) => void;
   isLoading?: boolean;
   noDataFound?: boolean;
   rowSelection?: RowSelectionState;
@@ -42,8 +40,6 @@ const Table = ({
   topRender,
   hideEdit,
   hideDelete,
-  toggleModal,
-  toggleFormModal,
   isLoading = false,
   noDataFound = false,
   rowSelection = {},
@@ -88,8 +84,6 @@ const Table = ({
                 table={table}
                 hideDelete={hideDelete}
                 hideEdit={hideEdit}
-                toggleModal={toggleModal}
-                toggleFormModal={toggleFormModal}
               />
             </table>
           </div>

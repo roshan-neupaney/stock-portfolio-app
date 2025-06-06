@@ -7,29 +7,27 @@ import AddStockModal from "../../../src/components/Modal/addStockModal";
 import { BeautifyStockList } from "../../../src/utils/beautify";
 import { toast } from "react-toastify";
 import CustomInput from "../../../src/components/Forms/input";
-
-interface deleteModalType {
-  id?: string;
-  state: boolean;
-}
-
-const defaultModal = {
-  id: undefined,
-  state: false,
-};
+import useAddStockModalStore from "../../zustand/useAddStockModalStore";
+import useDeleteModalStore from "../../../src/zustand/useDeleteModalStore";
 
 const Index: React.FC = () => {
-  const [openDeleteModal, toggleDeleteModal] =
-    useState<deleteModalType>(defaultModal);
-  const [openFormModal, toggleFormModal] =
-    useState<deleteModalType>(defaultModal);
   const [data, setData] = useState<StockFormType[]>([]);
+
+  const {
+    toggleAddStockModal,
+    status: addModalStatus,
+    id: addId,
+  } = useAddStockModalStore();
+  const {
+    toggleDeleteModal,
+    status: deleteModalStatus,
+    id: deleteId,
+  } = useDeleteModalStore();
 
   useEffect(() => {
     const data = localStorage.getItem("portfolio_stocks") || "[]";
     const parsedData: StockFormType[] = JSON.parse(data);
     const beautifiedData = BeautifyStockList(parsedData);
-    console.log("beautifiedData", beautifiedData);
     setData(beautifiedData);
   }, []);
 
@@ -64,17 +62,15 @@ const Index: React.FC = () => {
   );
 
   const handleDelete = () => {
-    if (openDeleteModal.id) {
+    if (deleteId) {
       const data = localStorage.getItem("portfolio_stocks") || "[]";
       const parsedData: StockFormType[] = JSON.parse(data);
-      const filteredData = parsedData.filter(
-        (items) => items.id !== openDeleteModal.id
-      );
+      const filteredData = parsedData.filter((items) => items.id !== deleteId);
       localStorage.setItem("portfolio_stocks", JSON.stringify(filteredData));
       const beautifiedData = BeautifyStockList(filteredData);
       setData(beautifiedData);
       toast.success("Stock deleted successfully");
-      toggleDeleteModal(defaultModal);
+      toggleDeleteModal(false, "");
     }
   };
 
@@ -94,7 +90,7 @@ const Index: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <PageHeader title={"Portfolio"} toggleFormModal={toggleFormModal} />
+      <PageHeader title={"Portfolio"} />
       <Table
         tableColumns={columns}
         tableData={data}
@@ -108,21 +104,19 @@ const Index: React.FC = () => {
             />
           </div>
         }
-        toggleModal={toggleDeleteModal}
         noDataFound={!data || data.length === 0}
-        toggleFormModal={toggleFormModal}
       />
 
       <DeleteModal
-        open={openDeleteModal.state}
-        handleClose={() => toggleDeleteModal(defaultModal)}
+        open={deleteModalStatus}
+        handleClose={() => toggleDeleteModal(false, "")}
         label="stock"
         handleSubmit={handleDelete}
       />
       <AddStockModal
-        open={openFormModal.state}
-        handleClose={() => toggleFormModal(defaultModal)}
-        id={openFormModal?.id}
+        open={addModalStatus}
+        handleClose={() => toggleAddStockModal(false, "")}
+        id={addId}
         setData={setData}
       />
     </div>

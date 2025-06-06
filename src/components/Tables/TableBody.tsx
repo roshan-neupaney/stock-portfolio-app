@@ -2,22 +2,22 @@ import { flexRender, Table } from "@tanstack/react-table";
 import { Trash2, Pencil } from "lucide-react";
 import { TData } from "./Table";
 import { Button } from "@mui/material";
+import useAddStockModalStore from "../../../src/zustand/useAddStockModalStore";
+import useDeleteModalStore from "../../../src/zustand/useDeleteModalStore";
 
 interface CustomTableBodyProps {
   table: Table<TData>;
-  toggleModal?: (value: { id?: string; state: boolean }) => void;
-  toggleFormModal?: (value: { id?: string; state: boolean }) => void;
   hideDelete?: boolean;
   hideEdit?: boolean;
 }
 
 const CustomTableBody = ({
   table,
-  toggleModal,
-  toggleFormModal,
   hideDelete = false,
   hideEdit = false,
 }: CustomTableBodyProps) => {
+  const { toggleAddStockModal } = useAddStockModalStore();
+  const { toggleDeleteModal } = useDeleteModalStore();
   return (
     <tbody>
       {table?.getRowModel()?.rows?.map((row, i: number) => {
@@ -47,7 +47,7 @@ const CustomTableBody = ({
                         {!hideEdit && (
                           <Button
                             className="rounded-full px-0 !min-w-fit text-gray-500 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-blue-400"
-                            onClick={() => toggleFormModal?.({ state: true, id })}
+                            onClick={() => toggleAddStockModal(true, id)}
                           >
                             <Pencil size={20} />
                           </Button>
@@ -55,9 +55,7 @@ const CustomTableBody = ({
                         {!hideDelete && (
                           <Button
                             className="rounded-full !text-red-500 !min-w-fit hover:bg-gray-100 hover:text-red-700"
-                            onClick={() =>
-                              toggleModal?.({ state: true, id: id })
-                            }
+                            onClick={() => toggleDeleteModal(true, id)}
                           >
                             <Trash2 size={20} />
                           </Button>

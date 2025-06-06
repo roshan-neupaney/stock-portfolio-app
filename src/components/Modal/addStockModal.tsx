@@ -29,7 +29,6 @@ const AddStockModal = ({
   id,
   setData,
 }: AddStockModalProps) => {
-  console.log("id", id);
 
   const [formData, setFormData] = useState<StockFormType>(defaultForm);
   const [formErrors, setErrorMessage] = useState(defaultForm);
@@ -50,7 +49,6 @@ const AddStockModal = ({
 
   const addStock = () => {
     const uuid = UUidGenerator();
-    console.log("uuid", uuid);
     const previousData = localStorage.getItem("portfolio_stocks") || "[]";
     const parsedData = JSON.parse(previousData);
     const newPayload = [...parsedData, { ...formData, id: uuid }];

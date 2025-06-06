@@ -2,10 +2,10 @@ import { Box, IconButton, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
+import useAddStockModalStore from "../zustand/useAddStockModalStore";
 
 interface PageHeaderProps {
   title: string;
-  toggleFormModal?: (value: { state: boolean; id?: string }) => void;
   hideAdd?: boolean;
   addTitle?: string;
   showBack?: boolean;
@@ -13,12 +13,12 @@ interface PageHeaderProps {
 
 const PageHeader = ({
   title = "",
-  toggleFormModal,
   hideAdd = false,
   addTitle = "Add",
   showBack = false,
 }: PageHeaderProps) => {
   const router = useNavigate();
+  const { toggleAddStockModal } = useAddStockModalStore();
 
   return (
     <Box
@@ -49,7 +49,7 @@ const PageHeader = ({
           <Tooltip title={addTitle}>
             <IconButton
               onClick={() => {
-                toggleFormModal?.({ state: true, id: "" });
+                toggleAddStockModal(true, "");
               }}
               style={{
                 backgroundColor: "#0291DD",
