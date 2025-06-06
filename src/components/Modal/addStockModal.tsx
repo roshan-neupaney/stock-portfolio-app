@@ -1,17 +1,21 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomInput from "../Forms/input";
 import { toast } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
 import { StockFormValidation } from "../../../src/utils/validationHelper";
 import { updateState } from "../../../src/hooks/useUpdate";
+import { UUidGenerator } from "../../../src/utils/helper";
+import { BeautifyStockList } from "../../../src/utils/beautify";
 
 interface AddStockModalProps {
   open: boolean;
   handleClose: () => void;
+  id?: string;
+  setData: (value: StockFormType[]) => void;
 }
 
 const defaultForm = {
+  id: "",
   ticker: "",
   company_name: "",
   quantity: "",
@@ -19,29 +23,66 @@ const defaultForm = {
   current_price: "",
 };
 
-const AddStockModal = ({ open, handleClose }: AddStockModalProps) => {
-//   const router = useNavigate();
+const AddStockModal = ({
+  open,
+  handleClose,
+  id,
+  setData,
+}: AddStockModalProps) => {
+  console.log("id", id);
 
   const [formData, setFormData] = useState<StockFormType>(defaultForm);
   const [formErrors, setErrorMessage] = useState(defaultForm);
 
+  useEffect(() => {
+    const previousData = localStorage.getItem("portfolio_stocks") || "[]";
+    const parsedData: StockFormType[] = JSON.parse(previousData);
+    const filteredData = parsedData.filter((items) => items?.id === id)[0];
+    setFormData({
+      id: filteredData?.id,
+      ticker: filteredData?.ticker || "",
+      company_name: filteredData?.company_name || "",
+      quantity: filteredData?.quantity || "",
+      purchased_price: filteredData?.purchased_price || "",
+      current_price: filteredData?.current_price || "",
+    });
+  }, [id]);
+
+  const addStock = () => {
+    const uuid = UUidGenerator();
+    console.log("uuid", uuid);
+    const previousData = localStorage.getItem("portfolio_stocks") || "[]";
+    const parsedData = JSON.parse(previousData);
+    const newPayload = [...parsedData, { ...formData, id: uuid }];
+    localStorage.setItem("portfolio_stocks", JSON.stringify(newPayload));
+    const beautifiedData = BeautifyStockList(newPayload);
+    setData(beautifiedData);
+  };
+
+  const updateStock = () => {
+    const previousData = localStorage.getItem("portfolio_stocks") || "[]";
+    const parsedData: StockFormType[] = JSON.parse(previousData);
+    const updatedData = parsedData.map((items) => {
+      if (items.id === id) {
+        return { ...items, ...formData };
+      }
+      return items;
+    });
+    localStorage.setItem("portfolio_stocks", JSON.stringify(updatedData));
+    const beautifiedData = BeautifyStockList(updatedData);
+    setData(beautifiedData);
+  };
+
   const submitStock = async () => {
     try {
-        const { isValid, errors } = StockFormValidation(formData);
-        if (isValid) {
-            const previousData = localStorage.getItem("stocks") || "[]";
-            const parsedData = JSON.parse(previousData);
-            console.log('hello', parsedData)
-        if (parsedData.length > 0) {
-          const newPayload = [...parsedData, formData];
-          localStorage.setItem("portfolio_stocks", JSON.stringify(newPayload));
-        } else {
-          localStorage.setItem("portfolio_stocks", JSON.stringify([formData]));
-        }
+      const { isValid, errors } = StockFormValidation(formData);
+      if (isValid) {
+        id ? updateStock() : addStock();
         setErrorMessage(defaultForm);
-        toast.success("Stock Added Successfully");
+        toast.success(`Stock ${id ? "Updated" : "Added"} Successfully`);
+        setFormData(defaultForm);
+        setErrorMessage(defaultForm);
         handleClose();
-        // router(0);
       } else {
         setErrorMessage(errors);
         toast.error("Validation Error");
@@ -89,9 +130,14 @@ const AddStockModal = ({ open, handleClose }: AddStockModalProps) => {
             title="Ticker"
             value={formData.ticker}
             onChange={(val: string) =>
-              updateState("ticker", val.toUpperCase(), setFormData, setErrorMessage)
+              updateState(
+                "ticker",
+                val.toUpperCase(),
+                setFormData,
+                setErrorMessage
+              )
             }
-            style={{width: '100%'}}
+            style={{ width: "100%" }}
             placeholder="Eg. JLI"
             error={formErrors.ticker}
           />
@@ -101,7 +147,7 @@ const AddStockModal = ({ open, handleClose }: AddStockModalProps) => {
             onChange={(val: string) =>
               updateState("company_name", val, setFormData, setErrorMessage)
             }
-            style={{width: '100%'}}
+            style={{ width: "100%" }}
             placeholder="Eg. Jyoti Life Insurance"
             error={formErrors.company_name}
           />
@@ -112,7 +158,7 @@ const AddStockModal = ({ open, handleClose }: AddStockModalProps) => {
               updateState("quantity", val, setFormData, setErrorMessage)
             }
             type="number"
-            style={{width: '100%'}}
+            style={{ width: "100%" }}
             placeholder="Eg. 10"
             error={formErrors.quantity}
           />
@@ -122,7 +168,7 @@ const AddStockModal = ({ open, handleClose }: AddStockModalProps) => {
             onChange={(val: string) =>
               updateState("purchased_price", val, setFormData, setErrorMessage)
             }
-            style={{width: '100%'}}
+            style={{ width: "100%" }}
             type="number"
             placeholder="Eg. 420"
             error={formErrors.purchased_price}
@@ -134,7 +180,7 @@ const AddStockModal = ({ open, handleClose }: AddStockModalProps) => {
               updateState("current_price", val, setFormData, setErrorMessage)
             }
             type="number"
-            style={{width: '100%'}}
+            style={{ width: "100%" }}
             placeholder="Eg. 550"
             error={formErrors.current_price}
           />
@@ -154,7 +200,7 @@ const AddStockModal = ({ open, handleClose }: AddStockModalProps) => {
                 backgroundColor: "#0291DD",
               }}
             >
-              Add Stock
+              {id ? "Update Stock" : "Add Stock"}
             </Button>
             <Button
               onClick={() => {

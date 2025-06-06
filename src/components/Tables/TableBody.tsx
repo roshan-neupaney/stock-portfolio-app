@@ -37,11 +37,11 @@ const CustomTableBody = ({
                     <div className="table-image relative h-12 w-12 overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800">
                       {/* Image placeholder */}
                     </div>
-                  ) : cell.column.id == "id" ? (
+                  ) : cell.column.id === "id" ? (
                     <div className="font-mono text-xs text-gray-500 dark:text-gray-400">
                       {cell.row.original["id"]}
                     </div>
-                  ) : cell.column.id == "action" ? (
+                  ) : cell.column.id === "action" ? (
                     <div className="flex items-center gap-2">
                       <>
                         {!hideEdit && (

@@ -20,7 +20,7 @@ export interface TData {
 
 interface TableProps<TData> {
   tableColumns: ColumnDef<TData>[];
-  tableData: TData[];
+  tableData: any[];
   initialPageSize?: number;
   onClickOnEdit?: (id: number) => void;
   onClickOnDelete?: (id: number) => void;

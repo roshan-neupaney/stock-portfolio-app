@@ -1,4 +1,5 @@
 interface StockFormType {
+    id: string
     ticker: string;
     company_name: string;
     quantity: string;

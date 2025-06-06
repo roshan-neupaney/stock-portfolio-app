@@ -8,6 +8,7 @@ export const StockFormValidation = (payload: StockFormType) => {
     current_price: "",
     purchased_price: "",
     quantity: "",
+    id: '',
   };
 
   if (!(company_name.length > 0)) {
@@ -33,6 +34,6 @@ export const StockFormValidation = (payload: StockFormType) => {
     errorMessages.quantity = "Quantity must be greater than 10"
   }
 
-  if (count == 0) return { isValid: true, errors: errorMessages };
+  if (count === 0) return { isValid: true, errors: errorMessages };
   else return { isValid: false, errors: errorMessages };
 };

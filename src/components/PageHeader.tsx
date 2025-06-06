@@ -3,12 +3,12 @@ import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 
-interface PageHeader {
+interface PageHeaderProps {
   title: string;
   toggleFormModal?: (value: { state: boolean; id?: string }) => void;
-  hideAdd: boolean;
-  addTitle: string;
-  showBack: boolean;
+  hideAdd?: boolean;
+  addTitle?: string;
+  showBack?: boolean;
 }
 
 const PageHeader = ({
@@ -17,7 +17,7 @@ const PageHeader = ({
   hideAdd = false,
   addTitle = "Add",
   showBack = false,
-}: any) => {
+}: PageHeaderProps) => {
   const router = useNavigate();
 
   return (
@@ -49,7 +49,7 @@ const PageHeader = ({
           <Tooltip title={addTitle}>
             <IconButton
               onClick={() => {
-                toggleFormModal({ state: true, id: "" });
+                toggleFormModal?.({ state: true, id: "" });
               }}
               style={{
                 backgroundColor: "#0291DD",

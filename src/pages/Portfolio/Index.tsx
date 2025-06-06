@@ -1,12 +1,14 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import PageHeader from "../../../src/components/PageHeader";
 import Table, { TData } from "../../../src/components/Tables/Table";
 import DeleteModal from "../../../src/components/Modal/deleteModal";
 import AddStockModal from "../../../src/components/Modal/addStockModal";
+import { BeautifyStockList } from "../../../src/utils/beautify";
+import { toast } from "react-toastify";
 
 interface deleteModalType {
-  id?: string | number;
+  id?: string;
   state: boolean;
 }
 
@@ -16,64 +18,41 @@ const defaultModal = {
 };
 
 const Index: React.FC = () => {
-  // const navigate = useNavigate();
-
   const [openDeleteModal, toggleDeleteModal] =
     useState<deleteModalType>(defaultModal);
   const [openFormModal, toggleFormModal] =
     useState<deleteModalType>(defaultModal);
-  console.log(openDeleteModal);
+  const [data, setData] = useState<StockFormType[]>([]);
 
-  // const [paginationData, setPaginationData] = useState<PaginationDataTypes>({
-  //   current_page: 1,
-  //   per_page: 10,
-  //   last_page: 1,
-  //   total: 10,
-  // });
-
-  // const {
-  //   data: campaignData,
-  //   isLoading,
-  //   refetch,
-  // } = useFetchCampaign({
-  //   perPage: paginationData?.per_page?.toString(),
-  //   page: paginationData?.current_page?.toString(),
-  // });
-  // const deleteCampaign = useDeleteCampaign();
-
-  // const beautifiedData = beautifyCampaign(campaignData?.data);
-
-  // useEffect(() => {
-  //   if (campaignData) {
-  //     setPaginationData((prev) => {
-  //       return {
-  //         ...prev,
-  //         current_page: campaignData.current_page,
-  //         last_page: campaignData.last_page,
-  //         per_page: campaignData.per_page,
-  //         total: campaignData.total,
-  //       };
-  //     });
-  //   }
-  // }, [campaignData]);
+  useEffect(() => {
+    const data = localStorage.getItem("portfolio_stocks") || "[]";
+    const parsedData: StockFormType[] = JSON.parse(data);
+    const beautifiedData = BeautifyStockList(parsedData);
+    console.log("beautifiedData", beautifiedData);
+    setData(beautifiedData);
+  }, []);
 
   const columns: ColumnDef<TData>[] = useMemo(
     () => [
       {
-        accessorKey: "name",
-        header: "Name",
+        accessorKey: "ticker",
+        header: "Ticker",
       },
       {
-        accessorKey: "description",
-        header: "Description",
+        accessorKey: "company_name",
+        header: "Company Name",
       },
       {
-        accessorKey: "type",
-        header: "Type",
+        accessorKey: "quantity",
+        header: "Quantity",
       },
       {
-        accessorKey: "created_at",
-        header: "Created At",
+        accessorKey: "purchased_price",
+        header: "Purchased Price",
+      },
+      {
+        accessorKey: "current_price",
+        header: "Current Price",
       },
       {
         accessorKey: "action",
@@ -82,52 +61,28 @@ const Index: React.FC = () => {
     ],
     []
   );
-  const beautifiedData = [
-    {
-      name: "Roshan Neupane",
-      description: "this is description",
-      type: "None",
-      created_at: "December 24, 2024",
-    },
-    {
-      name: "Arun Sapkota",
-      description: "this is arun",
-      type: "None",
-      created_at: "October 01, 2025",
-    },
-    {
-      name: "Hello World",
-      description: "hello world",
-      type: "Variable",
-      created_at: "June 18, 2020",
-    },
-  ];
 
-  // const onClickOnDelete = () => {
-  //   if (openDeleteModal.id) {
-  //     deleteCampaign.mutate(
-  //       { id: Number(openDeleteModal.id) },
-  //       {
-  //         onSuccess: () => {
-  //           toast.success("Campaign deleted successfully");
-  //           refetch();
-  //           toggleDeleteModal(defaultModal);
-  //         },
-  //         onError: (error) => {
-  //           console.error(error);
-  //           toast.error("Error while deleting campaign");
-  //         },
-  //       }
-  //     );
-  //   }
-  // };
+  const handleDelete = () => {
+    if (openDeleteModal.id) {
+      const data = localStorage.getItem("portfolio_stocks") || "[]";
+      const parsedData: StockFormType[] = JSON.parse(data);
+      const filteredData = parsedData.filter(
+        (items) => items.id !== openDeleteModal.id
+      );
+      localStorage.setItem("portfolio_stocks", JSON.stringify(filteredData));
+      const beautifiedData = BeautifyStockList(filteredData);
+      setData(beautifiedData);
+      toast.success("Stock deleted successfully");
+      toggleDeleteModal(defaultModal)
+    }
+  };
 
   return (
     <div className="space-y-4">
       <PageHeader title={"Portfolio"} toggleFormModal={toggleFormModal} />
       <Table
         tableColumns={columns}
-        tableData={beautifiedData}
+        tableData={data}
         // topRender={
         //   <div className="m-2 w-fit">
         //     <InputForm placeholder="Search..." />
@@ -135,19 +90,21 @@ const Index: React.FC = () => {
         // }
         // isLoading={isLoading}
         toggleModal={toggleDeleteModal}
-        noDataFound={!beautifiedData || beautifiedData.length === 0}
-        toggleFormModal = {toggleFormModal}
+        noDataFound={!data || data.length === 0}
+        toggleFormModal={toggleFormModal}
       />
 
       <DeleteModal
         open={openDeleteModal.state}
         handleClose={() => toggleDeleteModal(defaultModal)}
         label="stock"
-        handleSubmit={() => {}}
+        handleSubmit={handleDelete}
       />
       <AddStockModal
         open={openFormModal.state}
         handleClose={() => toggleFormModal(defaultModal)}
+        id={openFormModal?.id}
+        setData={setData}
       />
     </div>
   );
