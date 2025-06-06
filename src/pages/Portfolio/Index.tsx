@@ -6,6 +6,7 @@ import DeleteModal from "../../../src/components/Modal/deleteModal";
 import AddStockModal from "../../../src/components/Modal/addStockModal";
 import { BeautifyStockList } from "../../../src/utils/beautify";
 import { toast } from "react-toastify";
+import CustomInput from "../../../src/components/Forms/input";
 
 interface deleteModalType {
   id?: string;
@@ -73,8 +74,22 @@ const Index: React.FC = () => {
       const beautifiedData = BeautifyStockList(filteredData);
       setData(beautifiedData);
       toast.success("Stock deleted successfully");
-      toggleDeleteModal(defaultModal)
+      toggleDeleteModal(defaultModal);
     }
+  };
+
+  const handleSearch = (searchedTearm: string) => {
+    const value = searchedTearm.toLowerCase();
+    const data = localStorage.getItem("portfolio_stocks") || "[]";
+    const parsedData: StockFormType[] = JSON.parse(data);
+    const filteredData = parsedData.filter((items) => {
+      if (
+        items.company_name.toLowerCase().includes(value) ||
+        items.ticker.toLowerCase().includes(value)
+      )
+        return items;
+    });
+    setData(filteredData);
   };
 
   return (
@@ -83,12 +98,15 @@ const Index: React.FC = () => {
       <Table
         tableColumns={columns}
         tableData={data}
-        // topRender={
-        //   <div className="m-2 w-fit">
-        //     <InputForm placeholder="Search..." />
-        //   </div>
-        // }
-        // isLoading={isLoading}
+        topRender={
+          <div className="m-2 w-fit">
+            <CustomInput
+              placeholder="Search..."
+              onChange={(val: string) => handleSearch(val)}
+              variant="outlined"
+            />
+          </div>
+        }
         toggleModal={toggleDeleteModal}
         noDataFound={!data || data.length === 0}
         toggleFormModal={toggleFormModal}

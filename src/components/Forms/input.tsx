@@ -1,10 +1,10 @@
 import { FormControl, TextField } from '@mui/material';
 
 interface customInputProps {
-  title: string;
+  title?: string;
   variant?: 'standard' | 'filled' | 'outlined';
   placeholder?: string;
-  value: any;
+  value?: any;
   onChange?: any;
   required?: boolean;
   error?: any;
@@ -19,7 +19,7 @@ interface customInputProps {
 }
 
 const CustomInput = ({
-  title,
+  title='',
   value,
   onChange,
   error = '',
@@ -53,12 +53,14 @@ const CustomInput = ({
             onChange(e.target.value);
           }
         }}
+        className='inputForm'
         error={error.length > 0}
         disabled={disabled}
         type={type}        
-        className="label-large"
         sx={{
           borderBottom: variant === 'outlined' ? 'none' : '1px solid #C6C6C9',
+          fontFamily: 'outline',
+          fontSize: "12px !important",
           ...sx
         }}
         margin={margin}

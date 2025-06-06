@@ -103,7 +103,7 @@ const TablePagination = ({ table }: TablePaginationProps) => {
             </svg>
           </button>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="sm:flex items-center gap-1 hidden">
           <span className="border-b border-gray-100 pb-3 text-center text-sm font-medium text-gray-500 dark:border-gray-800 dark:text-gray-400 xl:border-b-0 xl:pb-0 xl:text-left">
             Showing{"  "}
             {pageIndex * pageSize + 1} -{" "}
@@ -112,7 +112,7 @@ const TablePagination = ({ table }: TablePaginationProps) => {
               : currentPage * pageSize}{" "}
             of {data?.length}
           </span>
-          <span className="text-gray-500 dark:text-gray-400">
+          <span className="text-gray-500 dark:text-gray-400 sm:flex hidden">
             | Go to page:{" "}
             <input
               className="appearance-none rounded-lg border pl-2 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-none focus:ring dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
@@ -150,7 +150,7 @@ const TablePagination = ({ table }: TablePaginationProps) => {
               );
             })}
           </select>
-          <span className="text-gray-500 dark:text-gray-400"> entries </span>
+          <span className="text-gray-500 dark:text-gray-400 hidden lg:block">entries</span>
         </div>
       </div>
     </>

@@ -116,7 +116,7 @@ const AddStockModal = ({
         }}
         flexDirection="column"
       >
-        <Box borderRadius={2} padding={9}>
+        <Box borderRadius={2} paddingY={9} paddingX={6}>
           <Typography
             id="modal-modal-title"
             variant="h4"
@@ -140,6 +140,7 @@ const AddStockModal = ({
             style={{ width: "100%" }}
             placeholder="Eg. JLI"
             error={formErrors.ticker}
+            required
           />
           <CustomInput
             title="Company Name"
@@ -150,6 +151,7 @@ const AddStockModal = ({
             style={{ width: "100%" }}
             placeholder="Eg. Jyoti Life Insurance"
             error={formErrors.company_name}
+            required
           />
           <CustomInput
             title="Quantity"
@@ -161,6 +163,7 @@ const AddStockModal = ({
             style={{ width: "100%" }}
             placeholder="Eg. 10"
             error={formErrors.quantity}
+            required
           />
           <CustomInput
             title="Purchased Price (Rs.)"
@@ -172,6 +175,7 @@ const AddStockModal = ({
             type="number"
             placeholder="Eg. 420"
             error={formErrors.purchased_price}
+            required
           />
           <CustomInput
             title="Current Price (Rs.)"
@@ -183,6 +187,7 @@ const AddStockModal = ({
             style={{ width: "100%" }}
             placeholder="Eg. 550"
             error={formErrors.current_price}
+            required
           />
           <Box
             display="flex"

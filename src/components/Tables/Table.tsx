@@ -69,7 +69,7 @@ const Table = ({
   });
 
   return (
-    <section className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg transition-all duration-200 dark:border-gray-800 dark:bg-gray-900">
+    <section className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg transition-all duration-200 min-w-75 dark:border-gray-800 dark:bg-gray-900">
       {topRender && (
         <div className="border-b border-gray-200 dark:border-gray-800">
           {topRender}
