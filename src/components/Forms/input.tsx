@@ -1,4 +1,4 @@
-import { FormControl, InputAdornment, TextField } from '@mui/material';
+import { FormControl, TextField } from '@mui/material';
 
 interface customInputProps {
   title: string;
@@ -15,8 +15,6 @@ interface customInputProps {
   style?: {};
   hideError?: boolean;
   sx?: {};
-  leftIcon?: any;
-  rightIcon?: any;
   margin?: any;
 }
 
@@ -35,8 +33,6 @@ const CustomInput = ({
   style = {},
   hideError = false,
   sx = {},
-  leftIcon = null,
-  rightIcon = null,
   margin = 'normal',
 }: customInputProps) => {
   return (
@@ -68,20 +64,12 @@ const CustomInput = ({
         margin={margin}
         multiline={multiline}
         rows={rows}
-        InputProps={{
-          startAdornment: leftIcon && (
-            <InputAdornment position="start">{leftIcon}</InputAdornment>
-          ),
-          endAdornment: rightIcon && (
-            <InputAdornment position="end">{rightIcon}</InputAdornment>
-          )
-        }}
       />
       {!hideError && (
         <>
           {error.length > 0 ? (
             <label
-              className="label-medium"
+              className="text-sm"
               style={{ color: 'red', marginTop: 1 }}
             >
               {error}

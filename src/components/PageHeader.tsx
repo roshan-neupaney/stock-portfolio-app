@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 interface PageHeader {
   title: string;
-  toggleModal: (value: { state: boolean; id?: string }) => void;
+  toggleFormModal?: (value: { state: boolean; id?: string }) => void;
   hideAdd: boolean;
   addTitle: string;
   showBack: boolean;
@@ -13,7 +13,7 @@ interface PageHeader {
 
 const PageHeader = ({
   title = "",
-  toggleModal,
+  toggleFormModal,
   hideAdd = false,
   addTitle = "Add",
   showBack = false,
@@ -35,31 +35,32 @@ const PageHeader = ({
         alignItems={"center"}
         gap={1}
       >
-        <div className="flex-1 items-center gap-10">
+        <Box className="flex flex-1 items-center gap-2.5">
           {showBack && (
-            <IconButton onClick={() => router(-1)} className="control-btn-back">
+            <IconButton onClick={() => router(-1)}>
               <ArrowBackIcon fontSize="inherit" style={{ color: "#0291DD" }} />
             </IconButton>
           )}
-          <h1 className="items-center ">{title}</h1>
-        </div>
+          <h1 className="items-center text-2xl font-bold ">{title}</h1>
+        </Box>
       </Box>
-      <div>
+      <Box>
         {!hideAdd && (
           <Tooltip title={addTitle}>
             <IconButton
               onClick={() => {
-                toggleModal({ state: true, id: "" });
+                toggleFormModal({ state: true, id: "" });
               }}
               style={{
                 backgroundColor: "#0291DD",
-                borderRadius: "4px",
+                borderRadius: "10px",
                 cursor: "pointer",
               }}
+              className="!px-4"
             >
               <AddIcon fontSize="medium" htmlColor="white" />
               <label
-                className="label-medium"
+                className="text-base py-1 px-2"
                 style={{ color: "white", cursor: "pointer" }}
               >
                 {addTitle}
@@ -67,7 +68,7 @@ const PageHeader = ({
             </IconButton>
           </Tooltip>
         )}
-      </div>
+      </Box>
     </Box>
   );
 };

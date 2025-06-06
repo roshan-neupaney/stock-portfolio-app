@@ -29,6 +29,7 @@ interface TableProps<TData> {
   hideEdit?: boolean;
   hideDelete?: boolean;
   toggleModal?: (value: { id?: string; state: boolean }) => void;
+  toggleFormModal?: (value: { id?: string; state: boolean }) => void;
   isLoading?: boolean;
   noDataFound?: boolean;
   rowSelection?: RowSelectionState;
@@ -42,6 +43,7 @@ const Table = ({
   hideEdit,
   hideDelete,
   toggleModal,
+  toggleFormModal,
   isLoading = false,
   noDataFound = false,
   rowSelection = {},
@@ -87,6 +89,7 @@ const Table = ({
                 hideDelete={hideDelete}
                 hideEdit={hideEdit}
                 toggleModal={toggleModal}
+                toggleFormModal={toggleFormModal}
               />
             </table>
           </div>

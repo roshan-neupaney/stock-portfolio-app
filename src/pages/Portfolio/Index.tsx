@@ -1,17 +1,9 @@
 import React, { useMemo, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import BreadCrumbFirst from "@/components/breadcrumbs/BreadCrumbFirst";
-// import Table, { PaginationDataTypes, TData } from "@/components/tables/Table";
 import { ColumnDef } from "@tanstack/react-table";
 import PageHeader from "../../../src/components/PageHeader";
 import Table, { TData } from "../../../src/components/Tables/Table";
-// import Button from "@/components/common/Button/Button";
-// import { InputForm } from "@/components/common/Input/InputForm";
-// import { beautifyCampaign } from "@/utils/beautify";
-// import HeaderWrapper from "@/components/wrapper/HeaderWrapper";
-// import DeleteModal from "@/components/Modal/DeleteModal";
-// import { toast } from "react-toastify";
-// import { useDeleteCampaign, useFetchCampaign } from "@/services/api/tenant/campaign/campaign.hooks";
+import DeleteModal from "../../../src/components/Modal/deleteModal";
+import AddStockModal from "../../../src/components/Modal/addStockModal";
 
 interface deleteModalType {
   id?: string | number;
@@ -26,8 +18,11 @@ const defaultModal = {
 const Index: React.FC = () => {
   // const navigate = useNavigate();
 
-  const [openModal, toggleModal] = useState<deleteModalType>(defaultModal);
-  console.log(openModal)
+  const [openDeleteModal, toggleDeleteModal] =
+    useState<deleteModalType>(defaultModal);
+  const [openFormModal, toggleFormModal] =
+    useState<deleteModalType>(defaultModal);
+  console.log(openDeleteModal);
 
   // const [paginationData, setPaginationData] = useState<PaginationDataTypes>({
   //   current_page: 1,
@@ -88,20 +83,35 @@ const Index: React.FC = () => {
     []
   );
   const beautifiedData = [
-    {name: 'Roshan Neupane', description: 'this is description', type: 'None', created_at: 'December 24, 2024'},
-    {name: 'Arun Sapkota', description: 'this is arun', type: 'None', created_at: 'October 01, 2025'},
-    {name: 'Hello World', description: 'hello world', type: 'Variable', created_at: 'June 18, 2020'},
-  ]
+    {
+      name: "Roshan Neupane",
+      description: "this is description",
+      type: "None",
+      created_at: "December 24, 2024",
+    },
+    {
+      name: "Arun Sapkota",
+      description: "this is arun",
+      type: "None",
+      created_at: "October 01, 2025",
+    },
+    {
+      name: "Hello World",
+      description: "hello world",
+      type: "Variable",
+      created_at: "June 18, 2020",
+    },
+  ];
 
   // const onClickOnDelete = () => {
-  //   if (openModal.id) {
+  //   if (openDeleteModal.id) {
   //     deleteCampaign.mutate(
-  //       { id: Number(openModal.id) },
+  //       { id: Number(openDeleteModal.id) },
   //       {
   //         onSuccess: () => {
   //           toast.success("Campaign deleted successfully");
   //           refetch();
-  //           toggleModal(defaultModal);
+  //           toggleDeleteModal(defaultModal);
   //         },
   //         onError: (error) => {
   //           console.error(error);
@@ -112,11 +122,9 @@ const Index: React.FC = () => {
   //   }
   // };
 
-  
-
   return (
     <div className="space-y-4">
-      <PageHeader />
+      <PageHeader title={"Portfolio"} toggleFormModal={toggleFormModal} />
       <Table
         tableColumns={columns}
         tableData={beautifiedData}
@@ -126,15 +134,21 @@ const Index: React.FC = () => {
         //   </div>
         // }
         // isLoading={isLoading}
-        toggleModal={toggleModal}
+        toggleModal={toggleDeleteModal}
         noDataFound={!beautifiedData || beautifiedData.length === 0}
+        toggleFormModal = {toggleFormModal}
       />
-      {/* <DeleteModal
-        open={openModal.state}
-        onClose={() => toggleModal(defaultModal)}
-        label="campaign"
-        onSubmit={onClickOnDelete}
-      /> */}
+
+      <DeleteModal
+        open={openDeleteModal.state}
+        handleClose={() => toggleDeleteModal(defaultModal)}
+        label="stock"
+        handleSubmit={() => {}}
+      />
+      <AddStockModal
+        open={openFormModal.state}
+        handleClose={() => toggleFormModal(defaultModal)}
+      />
     </div>
   );
 };
