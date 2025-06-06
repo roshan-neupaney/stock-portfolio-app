@@ -16,6 +16,7 @@ interface customInputProps {
   hideError?: boolean;
   sx?: {};
   margin?: any;
+  className?: string;
 }
 
 const CustomInput = ({
@@ -34,9 +35,10 @@ const CustomInput = ({
   hideError = false,
   sx = {},
   margin = 'normal',
+  className
 }: customInputProps) => {
   return (
-    <FormControl className="w-100" style={style}>
+    <FormControl className={`w-100 ${className}`} style={style}>
       <TextField
         id={title}
         label={title}
@@ -59,8 +61,6 @@ const CustomInput = ({
         type={type}        
         sx={{
           borderBottom: variant === 'outlined' ? 'none' : '1px solid #C6C6C9',
-          fontFamily: 'outline',
-          fontSize: "12px !important",
           ...sx
         }}
         margin={margin}

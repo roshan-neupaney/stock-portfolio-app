@@ -94,3 +94,62 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .inputForm {
   font-size: 12px !important;
 }
+
+@keyframes ldio-x2uulkbinbj {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+.ldio-x2uulkbinbj > div > div {
+  transform-origin: 150px 150px;
+  animation: ldio-x2uulkbinbj 3.0303030303030303s linear infinite;
+  opacity: 0.8
+}
+.ldio-x2uulkbinbj > div > div > div {
+  position: absolute;
+  left: 45px;
+  top: 45px;
+  width: 105px;
+  height: 105px;
+  border-radius: 105px 0 0 0;
+  transform-origin: 150px 150px
+}.ldio-x2uulkbinbj > div div:nth-child(1) {
+  animation-duration: 0.7575757575757576s
+}
+.ldio-x2uulkbinbj > div div:nth-child(1) > div {
+  background: #e15b64;
+  transform: rotate(0deg);
+}.ldio-x2uulkbinbj > div div:nth-child(2) {
+  animation-duration: 1.0101010101010102s
+}
+.ldio-x2uulkbinbj > div div:nth-child(2) > div {
+  background: #f47e60;
+  transform: rotate(0deg);
+}.ldio-x2uulkbinbj > div div:nth-child(3) {
+  animation-duration: 1.5151515151515151s
+}
+.ldio-x2uulkbinbj > div div:nth-child(3) > div {
+  background: #f8b26a;
+  transform: rotate(0deg);
+}.ldio-x2uulkbinbj > div div:nth-child(4) {
+  animation-duration: 3.0303030303030303s
+}
+.ldio-x2uulkbinbj > div div:nth-child(4) > div {
+  background: #abbd81;
+  transform: rotate(0deg);
+}
+.loadingio-spinner-wedges-nq4q5u6dq7r {
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+  overflow: hidden;
+  background: #ffffff;
+}
+.ldio-x2uulkbinbj {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-x2uulkbinbj div { box-sizing: content-box; }

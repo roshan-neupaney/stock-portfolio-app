@@ -69,7 +69,7 @@ const Table = ({
   });
 
   return (
-    <section className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg transition-all duration-200 min-w-75 dark:border-gray-800 dark:bg-gray-900">
+    <section className="overflow-hidden rounded-xl border border-gray-200 bg-white  transition-all duration-200 min-w-75 dark:border-gray-800 dark:bg-gray-900">
       {topRender && (
         <div className="border-b border-gray-200 dark:border-gray-800">
           {topRender}
@@ -83,7 +83,7 @@ const Table = ({
         <>
           <div className="overflow-x-auto">
             <table className="w-full table-auto border-collapse overflow-hidden break-words bg-white text-left dark:bg-gray-900 md:table-fixed md:overflow-auto">
-              <CustomTableHead table={table} />
+              <CustomTableHead table={table} clientSort />
               <CustomTableBody
                 table={table}
                 hideDelete={hideDelete}

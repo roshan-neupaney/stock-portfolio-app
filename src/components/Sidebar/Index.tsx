@@ -19,7 +19,7 @@ export const Sidebar = ({
               border-r border-gray-200  bg-white duration-300 ease-linear dark:border-gray-800 dark:bg-gray-900 lg:static lg:translate-x-0  
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
     >
-      <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5 ">
+      <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5 border-b">
         <NavLink to="/">
           <h1 className="text-gray-500">My Stock</h1>
         </NavLink>
@@ -49,9 +49,6 @@ export const Sidebar = ({
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <nav className="mt-5 px-4 lg:px-6">
           <div>
-            <h3 className="mb-4 ml-4 text-xs font-semibold text-gray-400 ">
-              MENU
-            </h3>
             <ul className="mb-6 flex flex-col gap-1.5">
               {routes
                 .map((route, index) => {

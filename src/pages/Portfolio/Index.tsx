@@ -104,6 +104,7 @@ const Index: React.FC = () => {
               placeholder="Search..."
               onChange={(val: string) => handleSearch(val)}
               variant="outlined"
+              className="sm:w-fit !max-w-60"
             />
           </div>
         }

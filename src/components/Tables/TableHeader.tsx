@@ -1,7 +1,8 @@
 import { flexRender, Table } from "@tanstack/react-table";
 import { TData } from "./Table";
+import { ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
-// import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
 interface CustomTableHeadProps {
   table: Table<TData>;
@@ -49,20 +50,25 @@ const CustomTableHead = ({
                           header.column.columnDef.header,
                           header.getContext()
                         )}
-                        {/* {!(header.id == "image" || header.id == "action" || header.id == "selection") && clientSort && (
-                                  <div className="ml-2 flex items-center">
-                                    {header.column.getIsSorted() === "asc" ? (
-                                        <AiOutlineUp className="h-4 w-4" />
-                                    ) : header.column.getIsSorted() === "desc" ? (
-                                        <AiOutlineDown className="h-4 w-4" />
-                                    ) : (
-                                        <div className="flex flex-col opacity-0 transition-opacity group-hover:opacity-70">
-                                          <AiOutlineUp className="h-3 w-3" />
-                                          <AiOutlineDown className="h-3 w-3 -mt-1" />
-                                        </div>
-                                    )}
-                                  </div>
-                              )} */}
+                        {!(
+                          header.id == "image" ||
+                          header.id == "action" ||
+                          header.id == "selection"
+                        ) &&
+                          clientSort && (
+                            <div className="ml-2 flex items-center">
+                              {header.column.getIsSorted() === "asc" ? (
+                                <ChevronUp className="h-4 w-4" />
+                              ) : header.column.getIsSorted() === "desc" ? (
+                                <ChevronDown className="h-4 w-4" />
+                              ) : (
+                                <div className="flex flex-col opacity-0 transition-opacity group-hover:opacity-70">
+                                  <ChevronUp className="h-3 w-3" />
+                                  <ChevronDown className="h-3 w-3 -mt-1" />
+                                </div>
+                              )}
+                            </div>
+                          )}
                       </div>
                     </div>
                   )}
