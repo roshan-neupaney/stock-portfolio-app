@@ -114,7 +114,7 @@ const AddStockModal = ({
         }}
         flexDirection="column"
       >
-        <Box borderRadius={2} paddingY={9} paddingX={6}>
+        <Box borderRadius={2} paddingY={9} paddingX={4}>
           <Typography
             id="modal-modal-title"
             variant="h4"

@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Stock Portfolio Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+This is a React-based Stock Portfolio Frontend application built with TypeScript and Material-UI. It allows users to manage a stock portfolio with a searchable and sortable table, visualize stock performance with charts, and add/delete stocks via modals. State management is handled using Zustand, and data is persisted in localStorage.
 
-## Available Scripts
+## Features
+- **Interactive Table**: Displays stocks with columns for ticker, company name, quantity, purchased price, and current price.
+  - Supports searching by ticker or company name.
+  - Sorting by ticker or company name, quantity, purchased price, and current price.
+- **Stock Charts**:
+  - **Line Chart**: Displays the price trend for a selected stock over time.
+  - **Column Chart**: Shows trading volume or daily gain/loss for a selected stock, with a toggle between the two views.
+- **Add Stock**: Add new stocks via a modal with form validation for fields like ticker, company name, quantity, and prices.
+- **Delete Stock**: Remove stocks using a confirmation modal.
+- **State Management**: Uses Zustand to manage modal states.
+- **Local Storage**: Persists stock data in the browser's localStorage for persistence across sessions.
 
-In the project directory, you can run:
+## Tech Stack
+- **Frontend**: React, TypeScript, Material-UI
+- **State Management**: Zustand
+- **Charts**: Hightcharts
+- **Utilities**: Custom helpers for UUID generation, form validation, and data beautification
+- **Persistence**: localStorage
 
-### `npm start`
+## Prerequisites
+- **Package Manager**: Yarn (recommended) or npm.
+- **Git**: For cloning the repository.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation and Running Process
+### Step 1: Clone the Repository
+Clone the project to your local machine using Git:
+```bash
+git clone https://github.com/roshan-neupaney/stock-portfolio-app.git
+```
+```bash
+cd stock-portfolio-app
+ ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- ***Install dependencies***
+``` bash 
+yarn install
+```
+### **Start Development Server** 
+```bash
+npm start
+```
